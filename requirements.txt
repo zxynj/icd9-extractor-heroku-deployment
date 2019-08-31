@@ -1,0 +1,9 @@
+gunicorn==19.9.0
+Flask==0.12.2
+numpy==1.14.2
+pandas==0.22.0
+dill==0.3.0
+matplotlib==2.1.2
+keras==2.2.2
+wordcloud==1.5.0
+
