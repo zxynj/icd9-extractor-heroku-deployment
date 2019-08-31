@@ -10,6 +10,8 @@ import io
 import base64
 import dill
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import load_model
 from wordcloud import WordCloud 
