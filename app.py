@@ -151,7 +151,26 @@ def resultspage():
             
             result_list.append((icd9+': '+max(lgbm_feature_name_list)+' is a potential ICD-9 with probability '+str(sum(prob_list))+'.',
                            graph1_url,graph2_url))
+    
+    del threshhold
+    del icd9_list    
     del note
+    del tfidf2_dict
+    del lgbm_model
+    del nn_model
+    del lgbm_prob_output
+    del nn_output
+    del lgbm_contri_output
+    del lgbm_importance_list
+    del lgbm_min_importance
+    del lgbm_importance_list_fixed
+    del lgbm_feature_name_list
+    del importance_dict
+    del graph1_url
+    del prob_cum_list
+    del prob_list
+    del prob_source_name_list
+    del graph2_url
     
     if result_list==[]:
         result_list.append(('empty',None,None))
@@ -160,7 +179,7 @@ def resultspage():
                            result_list=result_list)
 
 
-# In[14]:
+# In[15]:
 
 
 if __name__ == '__main__':
