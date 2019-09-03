@@ -151,6 +151,8 @@ def resultspage():
             
             result_list.append((icd9+': '+max(lgbm_feature_name_list)+' is a potential ICD-9 with probability '+str(sum(prob_list))+'.',
                            graph1_url,graph2_url))
+    del note
+    
     if result_list==[]:
         result_list.append(('empty',None,None))
             
