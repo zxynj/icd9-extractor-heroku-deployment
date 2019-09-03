@@ -84,7 +84,7 @@ The Natual Language Processing model trained in this app is comprised of two par
 n-grams of <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html">ICD-9 code description</a>
 reducing the log loss, then a one layer Neural Network learning the probability residuals using internal word embedding.</p>
 <h3>Why so few ICD-9 codes?</h3>
-<p>Due to memory limitation on Heroku, only <a href="https://github.com/zxynj/icd9-extractor-heroku-deployment/raw/master/other/learned%20icd-9%20list.xlsx">four ICD-9 codes</a> are trained so far. However, this app is good enough for
+<p>Due to storage limitation on Heroku, only <a href="https://github.com/zxynj/icd9-extractor-heroku-deployment/raw/master/other/learned%20icd-9%20list.xlsx">four ICD-9 codes</a> are trained so far. However, this app is good enough for
 a proof of concept.</p>
 <h3>Future Plans</h3>
 <p>The combined probability of the two steps does not necessarily fall in [0, 1]. To solve this, a threshold could be learned for

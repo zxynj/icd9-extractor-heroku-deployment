@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[16]:
+# In[ ]:
 
 
 import matplotlib
@@ -18,7 +18,7 @@ from wordcloud import WordCloud
 from flask import Flask, render_template, request
 
 
-# In[17]:
+# In[ ]:
 
 
 def make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,note_list):
@@ -33,7 +33,7 @@ def make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,note_list):
     return lgbm_prob_output,nn_output,lgbm_contri_output
 
 
-# In[18]:
+# In[ ]:
 
 
 def build_word_cloud(importance_dict):
@@ -55,7 +55,7 @@ def build_word_cloud(importance_dict):
     return 'data:image/png;base64,{}'.format(graph_url)
 
 
-# In[19]:
+# In[ ]:
 
 
 def build_waterfall(prob_list,prob_source_name_list):
@@ -83,13 +83,13 @@ def build_waterfall(prob_list,prob_source_name_list):
     return 'data:image/png;base64,{}'.format(graph_url)
 
 
-# In[20]:
+# In[ ]:
 
 
 app = Flask(__name__)
 
 
-# In[21]:
+# In[ ]:
 
 
 @app.route('/')
@@ -131,28 +131,54 @@ def resultspage():
         nn_model=load_model('model/'+icd9+'_nn_model_fitted.h5')  
     
         lgbm_prob_output,nn_output,lgbm_contri_output=make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,[note])
+        del tfidf2_dict
         del nn_model
         
         if lgbm_prob_output+nn_output>threshhold:
+            del lgbm_prob_output
             lgbm_importance_list=lgbm_model.feature_importances_.tolist()
+            del lgbm_model
             lgbm_min_importance=min([i for i in lgbm_importance_list if i!=0])/10
             lgbm_importance_list_fixed=[lgbm_min_importance if i==0 else i for i in lgbm_importance_list]
+            del lgbm_min_importance
             lgbm_feature_name_list=tfidf_transformer.get_feature_names()
+            del tfidf_transformer
             importance_dict=dict((i,j) for (i,j) in zip(lgbm_feature_name_list, lgbm_importance_list_fixed) if j!=0)
+            del lgbm_importance_list
+            del lgbm_importance_list_fixed
             graph1_url = build_word_cloud(importance_dict)
+            del importance_dict
 
             prob_cum_list=list(1/(1+np.exp(-np.cumsum(lgbm_contri_output))))
+            del lgbm_contri_output
             prob_cum_list.insert(0,0)
             prob_list=list(np.diff(prob_cum_list))
             prob_list.append(min(max(prob_cum_list[-1]+nn_output,0),1)-prob_cum_list[-1])
+            del nn_output
+            del prob_cum_list
             prob_source_name_list=['Intercept']
             prob_source_name_list.extend(lgbm_feature_name_list)
             prob_source_name_list.append('convolutional neural network')
             graph2_url = build_waterfall(prob_list,prob_source_name_list)
+            del prob_source_name_list
             
             result_list.append((icd9+': '+max(lgbm_feature_name_list)+' is a potential ICD-9 with probability '+str(sum(prob_list))+'.',
                            graph1_url,graph2_url))
-        
+            del lgbm_feature_name_list
+            del prob_list
+            del graph1_url
+            del graph2_url
+        else:
+            del lgbm_prob_output
+            del nn_output
+            del lgbm_contri_output
+            
+    
+    del threshhold
+    del icd9_list
+    del note
+
+    
     if result_list==[]:
         result_list.append(('empty',None,None))
             
@@ -160,7 +186,7 @@ def resultspage():
                            result_list=result_list)
 
 
-# In[22]:
+# In[ ]:
 
 
 if __name__ == '__main__':
