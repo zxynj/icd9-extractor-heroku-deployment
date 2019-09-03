@@ -131,7 +131,8 @@ def resultspage():
         nn_model=load_model('model/'+icd9+'_nn_model_fitted.h5')  
     
         lgbm_prob_output,nn_output,lgbm_contri_output=make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,[note])
-    
+        del nn_model
+        
         if lgbm_prob_output+nn_output>threshhold:
             lgbm_importance_list=lgbm_model.feature_importances_.tolist()
             lgbm_min_importance=min([i for i in lgbm_importance_list if i!=0])/10
@@ -151,27 +152,7 @@ def resultspage():
             
             result_list.append((icd9+': '+max(lgbm_feature_name_list)+' is a potential ICD-9 with probability '+str(sum(prob_list))+'.',
                            graph1_url,graph2_url))
-    
-    del threshhold
-    del icd9_list    
-    del note
-    del tfidf2_dict
-    del lgbm_model
-    del nn_model
-    del lgbm_prob_output
-    del nn_output
-    del lgbm_contri_output
-    del lgbm_importance_list
-    del lgbm_min_importance
-    del lgbm_importance_list_fixed
-    del lgbm_feature_name_list
-    del importance_dict
-    del graph1_url
-    del prob_cum_list
-    del prob_list
-    del prob_source_name_list
-    del graph2_url
-    
+        
     if result_list==[]:
         result_list.append(('empty',None,None))
             
