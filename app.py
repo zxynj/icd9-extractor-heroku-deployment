@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[8]:
+# In[16]:
 
 
 import matplotlib
@@ -18,7 +18,7 @@ from wordcloud import WordCloud
 from flask import Flask, render_template, request
 
 
-# In[9]:
+# In[17]:
 
 
 def make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,note_list):
@@ -33,7 +33,7 @@ def make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,note_list):
     return lgbm_prob_output,nn_output,lgbm_contri_output
 
 
-# In[10]:
+# In[18]:
 
 
 def build_word_cloud(importance_dict):
@@ -55,7 +55,7 @@ def build_word_cloud(importance_dict):
     return 'data:image/png;base64,{}'.format(graph_url)
 
 
-# In[11]:
+# In[19]:
 
 
 def build_waterfall(prob_list,prob_source_name_list):
@@ -83,13 +83,13 @@ def build_waterfall(prob_list,prob_source_name_list):
     return 'data:image/png;base64,{}'.format(graph_url)
 
 
-# In[12]:
+# In[20]:
 
 
 app = Flask(__name__)
 
 
-# In[13]:
+# In[21]:
 
 
 @app.route('/')
@@ -122,7 +122,7 @@ def resultspage():
         return render_template("analysis.html")
     
     threshhold=0.5
-    icd9_list=['4019','5849','E8508']
+    icd9_list=['4019','5849']
     result_list=[]
     for icd9 in icd9_list:
         tfidf2_dict = dill.load(open('data/tfidf2_dict.dict', 'rb'))
@@ -160,7 +160,7 @@ def resultspage():
                            result_list=result_list)
 
 
-# In[15]:
+# In[22]:
 
 
 if __name__ == '__main__':

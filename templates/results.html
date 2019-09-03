@@ -80,6 +80,10 @@ padding: 15px;
 <div class="container-fluid">
 <h2>Results</h2>
 
+<p>For each predicted ICD-9 code the following two graphs are shown:</p>
+<p>Word Cloud: Bigger word indicates a bigger impact on the prediction.</p>
+<p>Waterfall Chart: Sorted from the lowest to the highest. Showing how probabilities from different features/model accumulate to the final prediction.</p>
+
 {% if result_list[0][0]=='empty' %}
 <h4>No ICD-9 in the note.</h4>
 {% else %}
