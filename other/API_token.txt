@@ -1,7 +1,0 @@
-$ heroku authorizations:create -d "API_token"
-Creating OAuth Authorization... done
-Client:      <none>
-ID:          05a58384-b1bd-4f0b-9ae9-8b9931e160bd
-Description: API_token
-Scope:       global
-Token:       89658cdf-3c1c-43e2-81ad-879a4aa0f095
