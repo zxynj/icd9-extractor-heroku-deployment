@@ -81,8 +81,9 @@ padding: 15px;
 <div class="row">
 <div class="col-md-12"> 
 <h2>Analyze Medical Note</h2>
-<p>This is app will use take medical notes (discharge summary, office visit note...) and output a list of potential ICD9 codes.
-Note examples can be found <a href="https://github.com/zxynj/icd9-extractor-heroku-deployment/tree/master/Note%20Examples">here</a>.</p>
+<p>This is app will use take medical notes (discharge summary, office visit note...) and output a list of potential ICD9 codes.</p>
+<p>Note examples can be found <a href="https://github.com/zxynj/icd9-extractor-heroku-deployment/tree/master/Note%20Examples">here</a>.</p>
+<p>Due to the memory limitation of Heroku, each model has to be loaded all again when making a new prediction. Therefore it takes couple minutes to see the result. Even by doing this user will still experience memory exceeded error, so all dynos are set to restart every 10 mins.</p>
 
 <h4>
 <style>
