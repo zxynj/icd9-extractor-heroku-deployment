@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import matplotlib
@@ -18,7 +18,7 @@ from wordcloud import WordCloud
 from flask import Flask, render_template, request
 
 
-# In[ ]:
+# In[2]:
 
 
 def make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,note_list):
@@ -33,7 +33,7 @@ def make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,note_list):
     return lgbm_prob_output,nn_output,lgbm_contri_output
 
 
-# In[ ]:
+# In[3]:
 
 
 def build_word_cloud(importance_dict):
@@ -55,7 +55,7 @@ def build_word_cloud(importance_dict):
     return 'data:image/png;base64,{}'.format(graph_url)
 
 
-# In[ ]:
+# In[4]:
 
 
 def build_waterfall(prob_list,prob_source_name_list):
@@ -83,13 +83,13 @@ def build_waterfall(prob_list,prob_source_name_list):
     return 'data:image/png;base64,{}'.format(graph_url)
 
 
-# In[ ]:
+# In[5]:
 
 
 app = Flask(__name__)
 
 
-# In[ ]:
+# In[6]:
 
 
 @app.route('/')
@@ -162,7 +162,7 @@ def resultspage():
             graph2_url = build_waterfall(prob_list,prob_source_name_list)
             del prob_source_name_list
             
-            result_list.append((icd9+': '+max(lgbm_feature_name_list)+' is a potential ICD-9 with probability '+str(sum(prob_list))+'.',
+            result_list.append((icd9+': '+max(lgbm_feature_name_list, key=len)+' is a potential ICD-9 with probability '+"{0:.4f}".format(sum(prob_list))+'.',
                            graph1_url,graph2_url))
             del lgbm_feature_name_list
             del prob_list
@@ -186,7 +186,7 @@ def resultspage():
                            result_list=result_list)
 
 
-# In[ ]:
+# In[10]:
 
 
 if __name__ == '__main__':
