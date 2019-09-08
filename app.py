@@ -76,7 +76,7 @@ def build_waterfall(prob_list,prob_source_name_list):
                          figsize=(6,6))
     my_plot.plot(step.index, step.values,'k')
     
-    plt.savefig(img, format='png')
+    plt.savefig(img, format='png', bbox_inches='tight')
     img.seek(0)
     graph_url = base64.b64encode(img.getvalue()).decode()
     plt.close()
@@ -122,7 +122,7 @@ def resultspage():
         return render_template("analysis.html")
     
     threshhold=0.5
-    icd9_list=['4019','5849','E8508','E9192']
+    icd9_list=['4019','5849','4280','2724']
     result_list=[]
     for icd9 in icd9_list:
         tfidf2_dict = dill.load(open('data/tfidf2_dict.dict', 'rb'))
@@ -186,7 +186,7 @@ def resultspage():
                            result_list=result_list)
 
 
-# In[10]:
+# In[7]:
 
 
 if __name__ == '__main__':
