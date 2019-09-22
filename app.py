@@ -118,7 +118,7 @@ def resultspage():
         return render_template("analysis.html")
     
     threshhold=0.5
-    icd9_list=['4019','5849','4280','2724']
+    icd9_list=['4019','41401','4280','42731']
     result_list=[]
     for icd9 in icd9_list:
         tfidf2_dict = dill.load(open('data/tfidf2_dict.dict', 'rb'))
@@ -180,7 +180,7 @@ def resultspage():
                            result_list=result_list)
 
 
-# In[12]:
+# In[7]:
 
 
 if __name__ == '__main__':
