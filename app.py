@@ -26,7 +26,7 @@ def make_pred(tfidf_transformer,lgbm_model,nn_model,tfidf2_dict,note_list):
     lgbm_prob_output=lgbm_model.predict_proba(lgbm_input)[0, 1]
     lgbm_contri_output=lgbm_model.predict_proba(lgbm_input,pred_contrib=True).tolist()[0]
     nn_unpadded_input=[[tfidf2_dict[word] for word in note.split() if word in tfidf2_dict.keys()] for note in note_list]
-    maxlen=2000
+    maxlen=1000
     nn_padded_input=pad_sequences(nn_unpadded_input, dtype='float32', padding='post', maxlen=maxlen)
     nn_output=nn_model.predict(nn_padded_input)[0,0]
     
@@ -108,10 +108,6 @@ def aboutpage():
 def contactpage():
     return render_template('contact.html')
 
-@app.route('/static/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
 @app.route('/results', methods=['POST', 'GET'])
 def resultspage():
     try:
@@ -173,12 +169,10 @@ def resultspage():
             del nn_output
             del lgbm_contri_output
             
-    
     del threshhold
     del icd9_list
     del note
 
-    
     if result_list==[]:
         result_list.append(('empty',None,None))
             
