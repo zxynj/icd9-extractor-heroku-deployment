@@ -80,9 +80,9 @@ padding: 15px;
 
 <h3>Data Set and Model</h3>
 <p>The app uses a machine learning model trained on <a href="https://mimic.physionet.org/">MIMIC-III data set</a>.
-The Natual Language Processing model trained in this app is comprised of two parts: a Gradient Boosted Machine model using
+The Natural Language Processing model trained in this app is comprised of two parts: a Gradient Boosted Machine model using
 n-grams of <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html">ICD-9 code description</a>
-reducing the log loss, then a one layer Neural Network learning the probability residuals using internal word embedding.</p>
+reducing the log loss, then a convolutional Neural Network learning the probability residuals using internal word embedding.</p>
 <h3>Why so few ICD-9 codes?</h3>
 <p>Due to storage limitation on Heroku, only <a href="https://github.com/zxynj/icd9-extractor-heroku-deployment/raw/master/other/learned%20icd-9%20list.xlsx">four ICD-9 codes</a> are trained so far. However, this app is good enough for
 a proof of concept.</p>
